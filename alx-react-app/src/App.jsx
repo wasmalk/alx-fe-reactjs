@@ -6,6 +6,26 @@ import WelcomeMessage from './components/WelcomeMessage';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
 import Footer from './components/Footer';
+import Header from './components/Header';
+import MainContent from './components/MainContent';
+import Footer from './components/Footer';
+import UserProfile from './components/UserProfile';
+import './App.css';
+
+function App() {
+    return (
+        <div>
+            <Header />
+            <MainContent />
+
+            {/* Add the UserProfile component with sample props */}
+            <UserProfile name="John Doe" age={30} bio="A passionate developer from New York." />
+
+            <Footer />
+        </div>
+    );
+}
+
 
 function App() {
     const [count, setCount] = useState(0);
