@@ -18,13 +18,14 @@ function App() {
             <Header />
             <MainContent />
 
-            {/* Add the UserProfile component with sample props */}
-            <UserProfile name="John Doe" age={30} bio="A passionate developer from New York." />
+            {/* Add the UserProfile component with the specified props */}
+            <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
 
             <Footer />
         </div>
     );
 }
+
 
 
 function App() {
