@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import useRecipeStore from './recipeStore';
 
+
 const AddRecipeForm = () => {
   const addRecipe = useRecipeStore((state) => state.addRecipe);
   const [title, setTitle] = useState('');
@@ -41,5 +42,8 @@ const AddRecipeForm = () => {
     </form>
   );
 };
+addRecipe({ id: 1, title: "Pasta", description: "Delicious pasta recipe" });
+deleteRecipe(1); // Removes the recipe with ID 1.
+updateRecipe(1, { title: "Updated Pasta", description: "New description" });
 
 export default AddRecipeForm;
