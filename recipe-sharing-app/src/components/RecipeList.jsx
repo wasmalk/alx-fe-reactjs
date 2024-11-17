@@ -1,7 +1,7 @@
 // src/components/RecipeList.jsx
 import React, { useEffect } from 'react';
 import { useRecipeStore } from '../stores/recipeStore';
-
+import { Link } from 'react-router-dom';  // Import Link from react-router-dom
 const RecipeList = () => {
   const filteredRecipes = useRecipeStore(state => state.filteredRecipes); // Get filtered recipes
   const filterRecipes = useRecipeStore(state => state.filterRecipes); // Get filter action
@@ -12,21 +12,29 @@ const RecipeList = () => {
     filterRecipes(); // This will filter based on the current searchTerm
   }, [searchTerm, filterRecipes]); // Re-run whenever searchTerm changes
 
-  return (
-    <div style={styles.recipeListContainer}>
-      <h2 style={styles.title}>Recipe List</h2>
-      {filteredRecipes.length > 0 ? (
-        filteredRecipes.map((recipe) => (
-          <div key={recipe.id} style={styles.recipeCard}>
-            <h3 style={styles.recipeTitle}>{recipe.title}</h3>
+  
+  
+  
+  const RecipeList = () => {
+    const recipes = useRecipeStore((state) => state.filteredRecipes);
+  
+    return (
+      <div>
+        {recipes.map((recipe) => (
+          <div key={recipe.id}>
+            {/* Wrap recipe title with Link for navigation */}
+            <h3>
+              <Link to={`/recipes/${recipe.id}`}>{recipe.title}</Link>
+            </h3>
             <p>{recipe.description}</p>
           </div>
-        ))
-      ) : (
-        <p>No recipes found.</p>
-      )}
-    </div>
-  );
+        ))}
+      </div>
+    );
+  };
+  
+ 
+  
 };
 
 const styles = {

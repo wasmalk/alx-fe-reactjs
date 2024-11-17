@@ -6,6 +6,8 @@ import AddRecipeForm from './components/AddRecipeForm';
 import SearchBar from './components/SearchBar';
 import IngredientsFilter from './components/IngredientsFilter';
 import CookingTimeFilter from './components/CookingTimeFilter';
+import { Routes, Route } from 'react-router-dom'
+import RecipeDetails from './components/RecipeDetails';
 
 const App = () => (
   <Router>
@@ -20,5 +22,15 @@ const App = () => (
     </div>
   </Router>
 );
+function App() {
+  return (
+    <div>
+      <Routes>
+        <Route path="/" element={<RecipeList />} />
+        <Route path="/recipes/:id" element={<RecipeDetails />} />
+      </Routes>
+    </div>
+  );
+}
 
 export default App;
