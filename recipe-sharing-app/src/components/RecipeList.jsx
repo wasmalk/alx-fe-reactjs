@@ -1,41 +1,44 @@
-// src/components/RecipeList.jsx
-import React, { useEffect } from 'react';
-import { useRecipeStore } from '../stores/recipeStore';
-import { Link } from 'react-router-dom';  // Import Link from react-router-dom
+import React from 'react';
+import { useRecipeStore } from './recipeStore';
+import { Link } from 'react-router-dom';
+
 const RecipeList = () => {
-  const filteredRecipes = useRecipeStore(state => state.filteredRecipes); // Get filtered recipes
-  const filterRecipes = useRecipeStore(state => state.filterRecipes); // Get filter action
-  const searchTerm = useRecipeStore(state => state.searchTerm); // Get search term
+  const recipes = useRecipeStore((state) => state.recipes);
+  const addFavorite = useRecipeStore((state) => state.addFavorite);
+  const removeFavorite = useRecipeStore((state) => state.removeFavorite);
+  const favorites = useRecipeStore((state) => state.favorites);
 
-  // Trigger filtering whenever the search term is updated
-  useEffect(() => {
-    filterRecipes(); // This will filter based on the current searchTerm
-  }, [searchTerm, filterRecipes]); // Re-run whenever searchTerm changes
+  // Check if a recipe is a favorite
+  const isFavorite = (recipeId) => favorites.includes(recipeId);
 
-  
-  
-  
-  const RecipeList = () => {
-    const recipes = useRecipeStore((state) => state.filteredRecipes);
-  
-    return (
-      <div>
-        {recipes.map((recipe) => (
-          <div key={recipe.id}>
-            {/* Wrap recipe title with Link for navigation */}
-            <h3>
-              <Link to={`/recipes/${recipe.id}`}>{recipe.title}</Link>
-            </h3>
-            <p>{recipe.description}</p>
-          </div>
-        ))}
-      </div>
-    );
+  const toggleFavorite = (recipeId) => {
+    if (isFavorite(recipeId)) {
+      removeFavorite(recipeId);
+    } else {
+      addFavorite(recipeId);
+    }
   };
-  
- 
-  
+
+  return (
+    <div>
+      <h2>All Recipes</h2>
+      {recipes.map((recipe) => (
+        <div key={recipe.id}>
+          <h3>{recipe.title}</h3>
+          <p>{recipe.description}</p>
+          <button onClick={() => toggleFavorite(recipe.id)}>
+            {isFavorite(recipe.id) ? 'Remove from Favorites' : 'Add to Favorites'}
+          </button>
+          <Link to={`/recipe/${recipe.id}`}>View Details</Link>
+        </div>
+      ))}
+    </div>
+  );
 };
+
+
+
+
 
 const styles = {
   recipeListContainer: {
