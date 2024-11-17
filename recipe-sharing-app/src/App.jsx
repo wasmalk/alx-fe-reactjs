@@ -1,26 +1,19 @@
-// src/App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
-import AddRecipeForm from './components/AddRecipeForm';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
+import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
 
-const App = () => {
-  return (
-    <Router>
-      <div>
-        <h1>Recipe Sharing App</h1>
-        <Routes>
-          {/* Home route with recipe list and form */}
-          <Route path="/" element={<><AddRecipeForm /><RecipeList /></>} />
-
-          {/* Recipe details route */}
-          <Route path="/recipe/:id" element={<RecipeDetailsWrapper />} />
-        </Routes>
-      </div>
-    </Router>
-  );
-};
+const App = () => (
+  <Router>
+    <div>
+      <h1>Recipe Sharing App</h1>
+      <Routes>
+        <Route path="/" element={<><AddRecipeForm /><RecipeList /></>} />
+      </Routes>
+    </div>
+  </Router>
+);
 
 // Wrapper to handle dynamic route parameters
 const RecipeDetailsWrapper = () => {
