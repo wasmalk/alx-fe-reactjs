@@ -5,6 +5,11 @@ const useRecipeStore = create((set) => ({
   favorites: [], // User's favorite recipes
   recommendations: [], // Recommended recipes based on favorites
 
+  // Action to add a new recipe
+  addRecipe: (newRecipe) => set((state) => ({
+    recipes: [...state.recipes, newRecipe], // Add the new recipe to the recipes list
+  })),
+
   // Action to add a recipe to favorites
   addFavorite: (recipeId) => set((state) => {
     // Add the recipeId to the favorites list if it doesn't already exist
@@ -15,7 +20,7 @@ const useRecipeStore = create((set) => ({
 
   // Action to remove a recipe from favorites
   removeFavorite: (recipeId) => set((state) => ({
-    favorites: state.favorites.filter(id => id !== recipeId),
+    favorites: state.favorites.filter((id) => id !== recipeId),
   })),
 
   // Action to generate recommendations based on favorites
