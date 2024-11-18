@@ -4,6 +4,7 @@ const useRecipeStore = create((set) => ({
   recipes: [], // All recipes
   favorites: [], // User's favorite recipes
   recommendations: [], // Recommended recipes based on favorites
+  searchTerm: '', // The current search term
 
   // Action to add a recipe
   addRecipe: (recipe) => set((state) => ({
@@ -21,6 +22,9 @@ const useRecipeStore = create((set) => ({
   deleteRecipe: (recipeId) => set((state) => ({
     recipes: state.recipes.filter((recipe) => recipe.id !== recipeId),
   })),
+
+  // Action to set the search term
+  setSearchTerm: (term) => set({ searchTerm: term }),
 
   // Action to add a recipe to favorites
   addFavorite: (recipeId) => set((state) => {
