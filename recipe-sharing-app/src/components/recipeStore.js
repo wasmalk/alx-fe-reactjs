@@ -5,14 +5,25 @@ const useRecipeStore = create((set) => ({
   favorites: [], // User's favorite recipes
   recommendations: [], // Recommended recipes based on favorites
 
-  // Action to add a new recipe
-  addRecipe: (newRecipe) => set((state) => ({
-    recipes: [...state.recipes, newRecipe], // Add the new recipe to the recipes list
+  // Action to add a recipe
+  addRecipe: (recipe) => set((state) => ({
+    recipes: [...state.recipes, recipe],
+  })),
+
+  // Action to update a recipe
+  updateRecipe: (updatedRecipe) => set((state) => ({
+    recipes: state.recipes.map((recipe) =>
+      recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+    ),
+  })),
+
+  // Action to delete a recipe
+  deleteRecipe: (recipeId) => set((state) => ({
+    recipes: state.recipes.filter((recipe) => recipe.id !== recipeId),
   })),
 
   // Action to add a recipe to favorites
   addFavorite: (recipeId) => set((state) => {
-    // Add the recipeId to the favorites list if it doesn't already exist
     if (!state.favorites.includes(recipeId)) {
       return { favorites: [...state.favorites, recipeId] };
     }
@@ -25,7 +36,6 @@ const useRecipeStore = create((set) => ({
 
   // Action to generate recommendations based on favorites
   generateRecommendations: () => set((state) => {
-    // Here, we mock recommendations based on favorites and random logic
     const recommended = state.recipes.filter((recipe) =>
       state.favorites.includes(recipe.id) && Math.random() > 0.5
     );
