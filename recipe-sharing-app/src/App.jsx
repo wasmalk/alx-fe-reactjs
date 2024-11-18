@@ -1,11 +1,10 @@
-
-import { Routes, Route } from 'react-router-dom'
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { RecipeList } from './components/RecipeList';
 import { AddRecipeForm } from './components/AddRecipeForm';
 import { FavoritesList } from './components/FavoritesList';
 import { RecommendationsList } from './components/RecommendationsList';
+import { RecipeDetails } from './components/RecipeDetails'; // Assuming RecipeDetails is a valid component
 
 const App = () => {
   return (
@@ -29,26 +28,12 @@ const App = () => {
             <Route path="/add" element={<AddRecipeForm />} />
             <Route path="/favorites" element={<FavoritesList />} />
             <Route path="/recommendations" element={<RecommendationsList />} />
+            <Route path="/recipes/:id" element={<RecipeDetails />} /> {/* For recipe details */}
           </Routes>
         </main>
       </div>
     </Router>
   );
 };
-
-
-
-
-
-function App() {
-  return (
-    <div>
-      <Routes>
-        <Route path="/" element={<RecipeList />} />
-        <Route path="/recipes/:id" element={<RecipeDetails />} />
-      </Routes>
-    </div>
-  );
-}
 
 export default App;
