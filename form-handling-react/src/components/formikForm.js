@@ -10,7 +10,7 @@ const FormikRegistrationForm = () => {
     password: '',
   };
 
-  // Validation schema using Yup
+  // Validation schema using Yup with string().required for all fields
   const validationSchema = Yup.object({
     username: Yup.string()
       .required('Username is required')
@@ -95,7 +95,7 @@ const FormikRegistrationForm = () => {
   );
 };
 
-// Styles
+// Styles for simplicity
 const formStyle = {
   maxWidth: '400px',
   margin: '0 auto',
