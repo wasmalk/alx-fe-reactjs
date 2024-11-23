@@ -1,16 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
-function PostsComponent() {
-  return <div>Posts will be displayed here!</div>;
-}
-
-
-
+// Fetch posts from the API
 const fetchPosts = async () => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
   if (!response.ok) {
-    throw new Error('Failed to fetch posts');
+    throw new Error("Failed to fetch posts");
   }
   return response.json();
 };
@@ -23,10 +18,12 @@ function PostsComponent() {
     error,
     isFetching,
     isStale,
-    refetch, // Function to trigger a manual refetch
-  } = useQuery(['posts'], fetchPosts, {
+    refetch, // Function to manually trigger a refetch
+  } = useQuery(["posts"], fetchPosts, {
     staleTime: 60000, // Data remains fresh for 60 seconds
     cacheTime: 300000, // Cache persists for 5 minutes
+    refetchOnWindowFocus: false, // Disable automatic refetch when the window regains focus
+    keepPreviousData: true, // Maintain previous data while fetching new data
   });
 
   if (isLoading) {
@@ -41,7 +38,7 @@ function PostsComponent() {
     <div>
       <h1>Posts</h1>
       <button onClick={refetch} disabled={isFetching}>
-        {isFetching ? 'Refreshing...' : 'Refresh Posts'}
+        {isFetching ? "Refreshing..." : "Refresh Posts"}
       </button>
       {isFetching && !isLoading && <p>Fetching updates...</p>}
       {isStale ? (
@@ -62,5 +59,3 @@ function PostsComponent() {
 }
 
 export default PostsComponent;
-
-
