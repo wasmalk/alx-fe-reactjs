@@ -1,4 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
+import React from "react";
+
+function PostsComponent() {
+  return <div>Posts will be displayed here!</div>;
+}
+
+
+
 
 const fetchPosts = async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
