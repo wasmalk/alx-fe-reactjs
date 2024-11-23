@@ -7,7 +7,6 @@ function PostsComponent() {
 
 
 
-
 const fetchPosts = async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
   if (!response.ok) {
@@ -63,3 +62,5 @@ function PostsComponent() {
 }
 
 export default PostsComponent;
+
+
