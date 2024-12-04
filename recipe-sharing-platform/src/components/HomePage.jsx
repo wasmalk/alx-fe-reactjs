@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import recipesData from '../data.json'; // Import the recipe data
+import { Link } from 'react-router-dom'; // Import Link to create clickable links
+import recipesData from '../data.json';
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
 
-  // useEffect hook to load recipes when component mounts
   useEffect(() => {
-    setRecipes(recipesData); // Set recipes data from the imported JSON file
+    setRecipes(recipesData);
   }, []);
 
   return (
@@ -26,6 +26,9 @@ const HomePage = () => {
             <div className="p-4">
               <h2 className="text-xl font-semibold text-gray-800 hover:text-blue-600 transition duration-300">{recipe.title}</h2>
               <p className="text-gray-600 mt-2">{recipe.summary}</p>
+              <Link to={`/recipe/${recipe.id}`} className="text-blue-500 hover:underline mt-4 block">
+                View Recipe
+              </Link>
             </div>
           </div>
         ))}
