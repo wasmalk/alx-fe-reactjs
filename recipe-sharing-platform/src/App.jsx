@@ -2,7 +2,16 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg';
 import './App.css'
+import React from 'react';
+import HomePage from './components/HomePage'; // Import the HomePage component
 
+function App() {
+  return (
+    <div>
+      <HomePage />
+    </div>
+  );
+}
 
 
 function App() {
