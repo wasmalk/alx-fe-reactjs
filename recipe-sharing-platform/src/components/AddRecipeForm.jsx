@@ -9,14 +9,16 @@ const AddRecipeForm = () => {
 
   const [errors, setErrors] = useState({});
 
+  // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // Use e.target.value
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
+  // Validate form fields
   const validate = () => {
     const validationErrors = {};
 
@@ -37,6 +39,7 @@ const AddRecipeForm = () => {
     return validationErrors;
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validate();
