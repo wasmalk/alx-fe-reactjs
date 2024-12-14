@@ -6,7 +6,7 @@ const UserCard = ({ user }) => {
   }
 
   return (
-    <div style={{ marginTop: '20px', textAlign: 'center' }}>
+    <div style={{ textAlign: 'center', marginTop: '20px' }}>
       <img
         src={user.avatar_url}
         alt={`${user.login} avatar`}

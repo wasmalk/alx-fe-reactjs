@@ -10,20 +10,27 @@ const App = () => {
 
   const handleSearch = async (username) => {
     try {
-      setError(null);
-      const userData = await getUser(username);
-      setUser(userData);
+      setError(null); // Clear previous errors
+      const userData = await getUser(username); // Call API to fetch user data
+      setUser(userData); // Update user state with fetched data
     } catch (err) {
-      setUser(null);
-      setError('User not found');
+      setUser(null); // Clear user data if there's an error
+      setError('User not found'); // Set error message
     }
   };
 
   return (
     <div>
+      {/* App Header */}
       <Header />
+
+      {/* Search Form */}
       <SearchForm onSearch={handleSearch} />
+
+      {/* Display Error (if any) */}
       {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+
+      {/* Display User Info */}
       <UserCard user={user} />
     </div>
   );
