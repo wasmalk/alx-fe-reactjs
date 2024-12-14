@@ -8,16 +8,16 @@ const Search = () => {
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form behavior
-    setLoading(true); // Set loading state to true
+    e.preventDefault(); // Prevent default form behavior
+    setLoading(true); // Set loading state
     setError(null); // Reset error state
     setUser(null); // Reset user data
 
     try {
-      const userData = await fetchUserData(username); // Call the API
-      setUser(userData); // Set user data in state
+      const userData = await fetchUserData(username); // Fetch user data from API
+      setUser(userData); // Update user state
     } catch (err) {
-      setError('Looks like we can’t find the user'); // Set error message
+      setError('Looks like we cant find the user'); // Set specific error message
     } finally {
       setLoading(false); // Reset loading state
     }
@@ -56,9 +56,9 @@ const Search = () => {
       </form>
 
       {/* Conditional Rendering */}
-      {loading && <p style={{ marginTop: '20px' }}>Loading...</p>} {/* Loading State */}
-      {error && <p style={{ marginTop: '20px', color: 'red' }}>{error}</p>} {/* Error State */}
-      {user && ( // Render User Information on Success
+      {loading && <p style={{ marginTop: '20px' }}>Loading...</p>} {/* Loading state */}
+      {error && <p style={{ marginTop: '20px', color: 'red' }}>{error}</p>} {/* Error state */}
+      {user && ( // Render user information
         <div style={{ marginTop: '20px' }}>
           <img
             src={user.avatar_url}
