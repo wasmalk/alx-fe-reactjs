@@ -1,28 +1,23 @@
 import axios from 'axios';
 
-const GITHUB_API_BASE_URL = 'https://api.github.com';
-const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_API_KEY;
-
-// Configure Axios instance
-const axiosInstance = axios.create({
-  baseURL: GITHUB_API_BASE_URL,
-  headers: {
-    Authorization: GITHUB_TOKEN ? `Bearer ${GITHUB_TOKEN}` : undefined,
-  },
-});
+// Base URL for GitHub API
+const BASE_URL = 'https://api.github.com/search/users?q';
 
 /**
- * Fetch user data based on advanced search criteria.
- * @param {Object} params - The search parameters.
- * @param {string} params.username - The GitHub username (required).
- * @param {string} params.location - The location of the user (optional).
- * @param {number} params.minRepos - The minimum number of public repositories (optional).
- * @returns {Promise<Object>} - The search result containing user details.
+ * Fetches users from the GitHub API based on the given search criteria.
+ *
+ * @param {Object} params - Search parameters.
+ * @param {string} params.username - GitHub username to search for.
+ * @param {string} [params.location] - Location filter (optional).
+ * @param {number} [params.minRepos] - Minimum repository count filter (optional).
+ * @param {number} [params.page] - Page number for pagination (optional).
+ * @returns {Promise<Object>} - Response data containing the search results.
  */
-export const fetchUserData = async ({ username, location, minRepos }) => {
+export const fetchUserData = async ({ username, location, minRepos, page = 1 }) => {
   try {
-    // Construct the query for the search API
-    let query = `q=${username ? `user:${username}` : ''}`;
+    // Construct the query string based on the parameters
+    let query = `${username ? username : ''}`;
+
     if (location) {
       query += `+location:${location}`;
     }
@@ -30,20 +25,14 @@ export const fetchUserData = async ({ username, location, minRepos }) => {
       query += `+repos:>=${minRepos}`;
     }
 
-    // Make a GET request to the Search API
-    const response = await axiosInstance.get(`/search/users?${query}`);
-    const users = response.data.items;
+    // Add pagination
+    query += `&page=${page}`;
 
-    // If users are found, fetch full details of the first matching user
-    if (users && users.length > 0) {
-      const userDetails = await axiosInstance.get(`/users/${users[0].login}`);
-      return userDetails.data;
-    }
-
-    // Return null if no matching users are found
-    throw new Error('No users match the specified criteria.');
+    // Make the API request
+    const response = await axios.get(`${BASE_URL}${query}`);
+    return response.data; // Returns the search result
   } catch (error) {
-    console.error('Error fetching user data:', error.message);
+    console.error('Error fetching user data:', error);
     throw error;
   }
 };
